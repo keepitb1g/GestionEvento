@@ -41,7 +41,40 @@ public class Main {
         }
         return boleto;
     }
+    public static boolean verificarEdad(String [][] lista, String nombre) {
+        boolean acceso = false;
+        for (int i = 0; i < 10; i++) {
+            if (lista[i][0] != null && lista[i][0].equals(nombre)) {
+                if (Integer.parseInt(lista[i][1]) < 18) {
+                    acceso = false;
+                }
+                else {
+                    acceso = true;
+                }
+            }
+            else {
+                System.out.println("No posee la edad permitida para el ingreso al Evento.");
+            }
+        }
+        return acceso;
+    }
 
+    public static String validarInvitados(String[][] lista, String nombre) {
+        String resultado = "";
+        for (int i = 0; i < 10; i++) {
+            if (lista[i][0] != null && lista[i][0].equals(nombre)) {
+                if (lista[i][1].equals("VIP")) {
+                    int invitados = Integer.parseInt(lista[i][3]);
+                    if (invitados > 2) {
+                        resultado= "Excede el máximo de invitados para el boleto VIP";
+                    }
+                    else resultado = "Permitido";
+                }
+                else resultado = "El nombre ingresado no posee boleto VIP";
+            }
+        }
+        return resultado;
+    }
 
 }
 
