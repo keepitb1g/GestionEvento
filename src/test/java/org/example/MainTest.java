@@ -3,6 +3,7 @@ package org.example;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class MainTest {
 
@@ -34,26 +35,43 @@ class MainTest {
     }
 
     @Test
-    void verificarEdad() {
+    void testVerificarEdad() {
+        boolean resultado = Main.verificarEdad(lista, "Joaquin");
+        assertTrue(resultado);
+        resultado = Main.verificarEdad(lista, "Matias");
+        assertTrue(resultado);
     }
 
     @Test
-    void validarInvitados() {
+    void testValidarInvitados() {
+        String resultado = Main.validarInvitados(lista, "Joaquin");
+        assertEquals("Permitido", resultado);
+        resultado = Main.validarInvitados(lista, "Lukas");
+        assertEquals("El nombre ingresado no posee boleto VIP", resultado);
+        resultado = Main.validarInvitados(lista, "Felipe");
+        assertEquals("Excede el máximo de invitados para el boleto VIP", resultado);
+
     }
 
     @Test
-    void aforoDisponible() {
+    void testAforoDisponible() {
+        int aforo = Main.aforoDisponible(lista,10);
+                //aforo para entrada general
+        assertEquals(3,aforo);
+        aforo = Main.aforoDisponible(lista,15);
+                //aforo para entrada VIP
+        assertEquals(15,aforo);
     }
 
     @Test
-    void permitirAcceso() {
+    void testPermitirAcceso() {
     }
 
     @Test
-    void ingresoPersona() {
+    void testIngresoPersona() {
     }
 
     @Test
-    void removerPersona() {
+    void testRemoverPersona() {
     }
 }
