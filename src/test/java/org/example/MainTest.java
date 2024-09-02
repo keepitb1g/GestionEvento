@@ -26,7 +26,11 @@ class MainTest {
 
 
     @Test
-    void verificarBoleto() {
+    void testVerificarBoleto() {
+        String resultado = Main.verificarBoleto(lista, "Joaquin");
+        assertEquals("VIP", resultado);
+        resultado = Main.verificarBoleto(lista, "Matias");
+        assertEquals("True", resultado);
     }
 
     @Test
