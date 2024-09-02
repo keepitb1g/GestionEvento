@@ -15,6 +15,7 @@ public class Main {
         agregarPersona(lista, "Lukas", "20", "General", "1", "False");
         agregarPersona(lista, "Juan", "23", "False", "2", "False");
         agregarPersona(lista, "José", "26", "General", "0", "True");
+        agregarPersona(lista, "Matias", "22", "VIP", "2", "True");
         return lista;
     }
 
@@ -106,7 +107,7 @@ public class Main {
         if (boleto.equals("General")){
             int aforo = aforoDisponible(lista,10);
             if (invitados.equals("Permitido")){
-                int totalPersonas = 1+ (Integer.parseInt(lista[numero][3]));
+                int totalPersonas = 1+ (Integer.parseInt(lista[numeroFila][3]));
                 if (aforo > totalPersonas) verificarAforo = true;
             }
         }
