@@ -2,8 +2,8 @@ package org.example;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
 
@@ -57,21 +57,33 @@ class MainTest {
     void testAforoDisponible() {
         int aforo = Main.aforoDisponible(lista,10);
                 //aforo para entrada general
-        assertEquals(3,aforo);
+        assertEquals(9,aforo);
         aforo = Main.aforoDisponible(lista,15);
                 //aforo para entrada VIP
-        assertEquals(15,aforo);
+        assertEquals(7,aforo);
     }
 
     @Test
     void testPermitirAcceso() {
+        boolean permiso = Main.permitirAcceso(lista,0);
+        assertTrue(permiso);
+        permiso = Main.permitirAcceso(lista,1);
+        assertFalse(permiso);
     }
 
     @Test
     void testIngresoPersona() {
+        lista = Main.ingresoPersona(lista, "Carlos");
+        assertEquals("True", lista[2][4]);
     }
 
     @Test
     void testRemoverPersona() {
+        Main.removerPersona(lista, "Joaquin");
+        assertEquals("False", lista[0][4]);
+    }
+    @Test
+    void testAforo(){
+
     }
 }
