@@ -123,6 +123,13 @@ public class Main {
         }
         return lista;
     }
-
+    public static String[][] removerPersona(String[][] lista, String nombre){
+        for (int i = 0; i < 10; i++) {
+            if (lista[i][0] != null && lista[i][0].equals(nombre)) {
+                lista[i][4] = "False";
+            }
+        }
+        return lista;
+    }
 }
 
