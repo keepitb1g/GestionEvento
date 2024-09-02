@@ -1,16 +1,40 @@
-Gestión de acceso a eventos. Ayudantia POO
+# Gestión de Acceso a Eventos
 
-## Funcionamiento de los metodos:
+## Descripción
 
-1. ***agregarPersona():*** Permite añadir personas, con sus respectivos datos a la lista de personas (en forma de matriz 10personas x 5datos).
-2. ***inicializarLista():*** Permite restablecer la lista de personas, asignandole datos predefinidos.
-3. ***verificarEdad():*** Permite verificar si una persona es mayor de edad buscando por su nombre.
-4. ***verificarBoleto():*** Verifica que tipo de entrada posee una persona buscandio por su nombre.
-5. ***validarInvitados():*** Verifica si una persona cumple con los requisitos para traer invitados buscando por su nombre.
-6. ***aforoDisponible():*** Con "aforo = 20" devuelve el aforo disponible en GENERAL, con "aforo = 10" devuelve el aforo disponible en VIP.
-7. ***ingresarPersona():*** Marca a una persona como ingresada dentro del evento buscando por su nombre.
-8. ***permitirEntrada():*** Valida si una persona cumple con todos los requisitos para entrar al evento buscando por su posición en la lista (de 0 a 9)
-9. ***removerPersona():*** Marca a una persona como NO ingresada dentro del evento buscando por su nombre.
+Este proyecto gestiona el acceso a eventos, permitiendo agregar y verificar personas, controlar el aforo disponible, y validar los requisitos de ingreso. Está diseñado para manejar una lista de hasta 10 personas, cada una con 5 datos: nombre, edad, tipo de boleto, número de invitados y estado de ingreso.
 
-## Archivo con pruebas unitarias:
-Incluye test para cada uno de los metodos + un test de varios metodos en simultaneo
+## Métodos Principales
+
+1. **`agregarPersona(String[][] lista, String nombre, String edad, String boleto, String invitados, String ingresado)`**  
+   Agrega una persona a la lista con los datos especificados. Solo se añade a la primera fila vacía disponible.
+
+2. **`crearLista()`**  
+   Inicializa la lista de personas con datos predefinidos. Es utilizada para restablecer la lista a su estado inicial.
+
+3. **`verificarEdad(String[][] lista, String nombre)`**  
+   Verifica si una persona es mayor de edad buscando por su nombre. Retorna `true` si es mayor de 18 años, `false` en caso contrario.
+
+4. **`verificarBoleto(String[][] lista, String nombre)`**  
+   Devuelve el tipo de boleto de una persona (VIP, General o None) buscando por su nombre. Si no encuentra el nombre, retorna "Error buscando el boleto."
+
+5. **`validarInvitados(String[][] lista, String nombre)`**  
+   Verifica si una persona con boleto VIP cumple con los requisitos para traer invitados, buscando por su nombre. Retorna "Permitido" si puede traer hasta 2 invitados o "Excede el máximo de invitados para el boleto VIP" si supera este límite.
+
+6. **`aforoDisponible(String[][] lista, int aforo)`**  
+   Calcula el aforo disponible:
+   - Con `aforo = 10`, devuelve el aforo disponible para entradas Generales.
+   - Con `aforo = 15`, devuelve el aforo disponible para entradas VIP, considerando el número de invitados.
+
+7. **`ingresoPersona(String[][] lista, String nombre)`**  
+   Marca a una persona como ingresada al evento buscando por su nombre, cambiando su estado de "False" a "True".
+
+8. **`permitirAcceso(String[][] lista, int numeroFila)`**  
+   Verifica si una persona cumple con todos los requisitos para entrar al evento, incluyendo la verificación de edad, tipo de boleto y aforo disponible, buscando por la posición en la lista (índice de 0 a 9).
+
+9. **`removerPersona(String[][] lista, String nombre)`**  
+   Marca a una persona como no ingresada dentro del evento, buscando por su nombre y cambiando su estado de "True" a "False".
+
+## Pruebas Unitarias
+
+El archivo de pruebas unitarias incluye tests para cada uno de los métodos, asegurando su correcto funcionamiento. También incluye un test que evalúa múltiples métodos en simultáneo para validar la integración entre ellos.
