@@ -20,83 +20,70 @@ public class Main {
     }
 
     public static void agregarPersona(String lista[][], String nombre, String edad, String boleto, String invitados, String ingresado) {
-        for (int i = 0; i <= 10; i++) {
-            lista[i][0] = nombre;
-            lista[i][1] = edad;
-            lista[i][2] = boleto;
-            lista[i][3] = invitados;
-            lista[i][4] = ingresado;
-
+        for (int i = 0; i < 10; i++) {
+            if (lista[i][0] == null) {
+                lista[i][0] = nombre;
+                lista[i][1] = edad;
+                lista[i][2] = boleto;
+                lista[i][3] = invitados;
+                lista[i][4] = ingresado;
+                break;
+            }
         }
     }
 
     public static String verificarBoleto(String[][] lista, String nombre) {
-        String boleto = "Nulo";
-        for (int i = 0; i < 10; i++) {
-            if (lista[i][0].equals(nombre)) {
-                boleto = lista[i][2];
-                break;
-            } else {
-                boleto = "Error buscando el boleto.";
-            }
-        }
-        return boleto;
-    }
-    public static boolean verificarEdad(String [][] lista, String nombre) {
-        boolean acceso = false;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < lista.length; i++) {
             if (lista[i][0] != null && lista[i][0].equals(nombre)) {
-                if (Integer.parseInt(lista[i][1]) < 18) {
-                    acceso = false;
-                }
-                else {
-                    acceso = true;
-                }
-            }
-            else {
-                System.out.println("No posee la edad permitida para el ingreso al Evento.");
+                return lista[i][2];
             }
         }
-        return acceso;
+        return "Error buscando el boleto.";
+    }
+
+    public static boolean verificarEdad(String[][] lista, String nombre) {
+        for (int i = 0; i < lista.length; i++) {
+            if (lista[i][0] != null && lista[i][0].equals(nombre)) {
+                return Integer.parseInt(lista[i][1]) >= 18;
+            }
+        }
+        return false;
     }
 
     public static String validarInvitados(String[][] lista, String nombre) {
-        String resultado = "";
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < lista.length; i++) {
             if (lista[i][0] != null && lista[i][0].equals(nombre)) {
-                if (lista[i][1].equals("VIP")) {
-                    int invitados = Integer.parseInt(lista[i][3]);
-                    if (invitados > 2) {
-                        resultado= "Excede el máximo de invitados para el boleto VIP";
-                    }
-                    else resultado = "Permitido";
+                if (!lista[i][2].equals("VIP")) {
+                    return "El nombre ingresado no posee boleto VIP";
                 }
-                else resultado = "El nombre ingresado no posee boleto VIP";
+                int invitados = Integer.parseInt(lista[i][3]);
+                return invitados <= 2 ? "Permitido" : "Excede el máximo de invitados para el boleto VIP";
             }
         }
-        return resultado;
+        return "El nombre ingresado no existe en la lista";
     }
+
     public static int aforoDisponible(String[][] lista, int aforo) {
         int aforoDisponible = aforo;
 
-        if (aforoDisponible ==10){
+        if (aforoDisponible == 10) {
             for (int i = 0; i < 10; i++) {
-                if (lista[i][2] == "General" && lista[i][4] == "True") aforoDisponible--;
+                if (lista[i][2].equals("General") && lista[i][4].equals("True")) aforoDisponible--;
             }
-        }
-        else if (aforoDisponible == 15){
+        } else if (aforoDisponible == 15) {
             for (int i = 0; i < 10; i++) {
-                if(lista[i][2].equals("VIP") && lista[i][4].equals("True")){
+                if (lista[i][2].equals("VIP") && lista[i][4].equals("True")) {
                     aforoDisponible--;
                     String validarInvitados = validarInvitados(lista, lista[i][0]);
                     if (validarInvitados.equals("Permitido")) {
-                        aforoDisponible= aforoDisponible - Integer.parseInt(lista[i][3]);
+                        aforoDisponible -= Integer.parseInt(lista[i][3]);
                     }
                 }
             }
         }
         return aforoDisponible;
     }
+
     public static boolean permitirAcceso(String[][] lista, int numeroFila) {
         String nombre = lista[numeroFila][0];
         boolean verificacionEdad = verificarEdad(lista, nombre);
@@ -104,27 +91,29 @@ public class Main {
         String invitados = validarInvitados(lista, nombre);
 
         boolean verificarAforo = false;
-        if (boleto.equals("General")){
-            int aforo = aforoDisponible(lista,10);
-            if (invitados.equals("Permitido")){
-                int totalPersonas = 1+ (Integer.parseInt(lista[numeroFila][3]));
+        if (boleto.equals("General")) {
+            int aforo = aforoDisponible(lista, 10);
+            if (invitados.equals("Permitido")) {
+                int totalPersonas = 1 + Integer.parseInt(lista[numeroFila][3]);
                 if (aforo > totalPersonas) verificarAforo = true;
             }
         }
-        if (verificacionEdad && boleto != "False" && verificarAforo) return true;
-        else return false;
+        return verificacionEdad && !boleto.equals("False") && verificarAforo;
     }
-    public static String [][] ingresoPersona(String[][] lista, String nombre){
+
+    public static String[][] ingresoPersona(String[][] lista, String nombre) {
         for (int i = 0; i < 10; i++) {
             if (lista[i][0] != null && lista[i][0].equals(nombre)) {
-                if (lista[i][4].equals("False")) lista[i][4].equals("True");
-                else
+                if (lista[i][4].equals("False")) {
+                } else {
                     System.out.println("Ya se encuentra dentro");
+                }
             }
         }
         return lista;
     }
-    public static String[][] removerPersona(String[][] lista, String nombre){
+
+    public static String[][] removerPersona(String[][] lista, String nombre) {
         for (int i = 0; i < 10; i++) {
             if (lista[i][0] != null && lista[i][0].equals(nombre)) {
                 lista[i][4] = "False";
@@ -133,4 +122,3 @@ public class Main {
         return lista;
     }
 }
-
