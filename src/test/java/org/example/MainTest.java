@@ -84,6 +84,20 @@ class MainTest {
     }
     @Test
     void testAforo(){
+        assertEquals(9, Main.aforoDisponible(lista,10));
+        // para comprobar aforo disponible en general
+        assertEquals(7, Main.aforoDisponible(lista,15));
+        // para comprobar aforo VIP
+        Main.ingresoPersona(lista,"José");
+        assertEquals("True", lista[8][4]);
+        Main.ingresoPersona(lista, "Carlos");
+        assertEquals("True",lista[2][4]);
+
+        assertEquals(8,Main.aforoDisponible(lista,10));
+        //se comprueba nuevo aforo General teniendo en cuenta que se ingreso un general
+        assertEquals(4,Main.aforoDisponible(lista,15));
+        //se comprueba nuevo aforo VIP teniendo en cuenta que se ingreso un VIP con 2 invitados
+
 
     }
 }
