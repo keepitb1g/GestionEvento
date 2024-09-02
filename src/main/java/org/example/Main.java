@@ -75,6 +75,54 @@ public class Main {
         }
         return resultado;
     }
+    public static int aforoDisponible(String[][] lista, int aforo) {
+        int aforoDisponible = aforo;
+
+        if (aforoDisponible ==10){
+            for (int i = 0; i < 10; i++) {
+                if (lista[i][2] == "General" && lista[i][4] == "True") aforoDisponible--;
+            }
+        }
+        else if (aforoDisponible == 15){
+            for (int i = 0; i < 10; i++) {
+                if(lista[i][2].equals("VIP") && lista[i][4].equals("True")){
+                    aforoDisponible--;
+                    String validarInvitados = validarInvitados(lista, lista[i][0]);
+                    if (validarInvitados.equals("Permitido")) {
+                        aforoDisponible= aforoDisponible - Integer.parseInt(lista[i][3]);
+                    }
+                }
+            }
+        }
+        return aforoDisponible;
+    }
+    public static boolean permitirAcceso(String[][] lista, int numeroFila) {
+        String nombre = lista[numeroFila][0];
+        boolean verificacionEdad = verificarEdad(lista, nombre);
+        String boleto = verificarBoleto(lista, nombre);
+        String invitados = validarInvitados(lista, nombre);
+
+        boolean verificarAforo = false;
+        if (boleto.equals("General")){
+            int aforo = aforoDisponible(lista,10);
+            if (invitados.equals("Permitido")){
+                int totalPersonas = 1+ (Integer.parseInt(lista[numero][3]));
+                if (aforo > totalPersonas) verificarAforo = true;
+            }
+        }
+        if (verificacionEdad && boleto != "False" && verificarAforo) return true;
+        else return false;
+    }
+    public static String [][] ingresoPersona(String[][] lista, String nombre){
+        for (int i = 0; i < 10; i++) {
+            if (lista[i][0] != null && lista[i][0].equals(nombre)) {
+                if (lista[i][4].equals("False")) lista[i][4].equals("True");
+                else
+                    System.out.println("Ya se encuentra dentro");
+            }
+        }
+        return lista;
+    }
 
 }
 
